@@ -231,53 +231,78 @@ boards.forEach((board, currentIndex) => {
                 `;
         }
 
-        var todos = document.querySelector('.todo_section');
-        var doings = document.querySelector('.doing_section');
-        var dones = document.querySelector('.done_section');
-        let currentTaskLog = boardsTaskStorage[currentIndex].task_log;
+        var btnAddSubtask = document.querySelectorAll('#btnAddSubtask');
 
-        let statusTaskLogHTML = `<div class="task-content">
-        <div class="priority_and_ellipses">
-            <div class="tag-priority">HIGH</div>
-            <div id="btn-menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 6C10.5 5.60218 10.658 5.22064 10.9393 4.93934C11.2206 4.65804 11.6022 4.5 12 4.5C12.3978 4.5 12.7794 4.65804 13.0607 4.93934C13.342 5.22064 13.5 5.60218 13.5 6C13.5 6.39782 13.342 6.77936 13.0607 7.06066C12.7794 7.34196 12.3978 7.5 12 7.5C11.6022 7.5 11.2206 7.34196 10.9393 7.06066C10.658 6.77936 10.5 6.39782 10.5 6ZM10.5 12C10.5 11.6022 10.658 11.2206 10.9393 10.9393C11.2206 10.658 11.6022 10.5 12 10.5C12.3978 10.5 12.7794 10.658 13.0607 10.9393C13.342 11.2206 13.5 11.6022 13.5 12C13.5 12.3978 13.342 12.7794 13.0607 13.0607C12.7794 13.342 12.3978 13.5 12 13.5C11.6022 13.5 11.2206 13.342 10.9393 13.0607C10.658 12.7794 10.5 12.3978 10.5 12ZM10.5 18C10.5 17.6022 10.658 17.2206 10.9393 16.9393C11.2206 16.658 11.6022 16.5 12 16.5C12.3978 16.5 12.7794 16.658 13.0607 16.9393C13.342 17.2206 13.5 17.6022 13.5 18C13.5 18.3978 13.342 18.7794 13.0607 19.0607C12.7794 19.342 12.3978 19.5 12 19.5C11.6022 19.5 11.2206 19.342 10.9393 19.0607C10.658 18.7794 10.5 18.3978 10.5 18Z" fill="#555659"/>
-                    </svg>
-            </div>                            
-        </div>
-        <div class="task-title">Roadmap</div>
-        <div class="tag_keyword">SIGNAGE</div>
-        <div class="date_and_task-progress">
-            <span>
-                Tue May 24,2023
-            </span>
-            <span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.615 6.615 2.25 12 2.25C17.385 2.25 21.75 6.615 21.75 12C21.75 17.385 17.385 21.75 12 21.75C6.615 21.75 2.25 17.385 2.25 12ZM15.61 10.186C15.67 10.1061 15.7134 10.0149 15.7377 9.91795C15.762 9.82098 15.7666 9.72014 15.7514 9.62135C15.7361 9.52257 15.7012 9.42782 15.6489 9.3427C15.5965 9.25757 15.5276 9.18378 15.4463 9.12565C15.3649 9.06753 15.2728 9.02624 15.1753 9.00423C15.0778 8.98221 14.9769 8.97991 14.8785 8.99746C14.7801 9.01501 14.6862 9.05205 14.6023 9.10641C14.5184 9.16077 14.4462 9.23135 14.39 9.314L11.154 13.844L9.53 12.22C9.38783 12.0875 9.19978 12.0154 9.00548 12.0188C8.81118 12.0223 8.62579 12.101 8.48838 12.2384C8.35097 12.3758 8.27225 12.5612 8.26882 12.7555C8.2654 12.9498 8.33752 13.1378 8.47 13.28L10.72 15.53C10.797 15.6069 10.8898 15.6662 10.992 15.7036C11.0942 15.7411 11.2033 15.7559 11.3118 15.7469C11.4202 15.738 11.5255 15.7055 11.6201 15.6519C11.7148 15.5982 11.7967 15.5245 11.86 15.436L15.61 10.186Z" fill="#555659"/>
-                    </svg>
-                    0/8                                
-            </span>
-        </div>
-    </div>`;
+        btnAddSubtask.forEach(newTask => {
+            newTask.addEventListener('click', () => {
+                document.querySelector('.subtask-log').innerHTML += `
+                <div class="subtask_raw">
+                
+                </div>`;
 
-    if (boardsTaskStorage && boardsTaskStorage[currentIndex].task_log.length > 0) {
-        if (boardsTaskStorage[currentIndex].task_log.status === "todo") {
-            // todos.forEach(todo => {
-            //     todo.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-            // });
-            todos.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-        } else if (boardsTaskStorage[currentIndex].task_log.status === "doing") {
-            // doings.forEach(doing => {
-            //     doing.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-            // });
-            doings.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-        } else if (boardsTaskStorage[currentIndex].task_log.status === "done") {
-            // dones.forEach(done => {
-            //     done.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-            // });
-            dones.insertAdjacentHTML('beforeend', statusTaskLogHTML);
-        }
-    } 
+                document.querySelectorAll('.subtask_raw').forEach(substask => {
+                    
+                })
+            });
+        });
+
+
+        boardsTaskStorage[currentIndex].task_log.forEach(item => {
+            var todos = document.querySelectorAll('.todo_section');
+            var doings = document.querySelectorAll('.doing_section');
+            var dones = document.querySelectorAll('.done_section');
+
+            let createdAts = item.created_at;
+            let createdDates = new Date(createdAts);
+            const options = {
+                weekday: 'short', // Short weekday name (e.g., Tue)
+                month: 'short', // Short month name (e.g., May)
+                day: 'numeric', // Numeric day (e.g., 24)
+                year: 'numeric' // Full year (e.g., 2023)
+              };
+            let upperCaseStringPrioritys = item.priority;
+            let upperCaseStringKeywordss = item.keywords;
+
+            let statusTaskLogHTML = `<div class="task-content">
+            <div class="priority_and_ellipses">
+                <div class="tag-priority">${upperCaseStringPrioritys.toUpperCase()}</div>
+                <div id="btn-menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 6C10.5 5.60218 10.658 5.22064 10.9393 4.93934C11.2206 4.65804 11.6022 4.5 12 4.5C12.3978 4.5 12.7794 4.65804 13.0607 4.93934C13.342 5.22064 13.5 5.60218 13.5 6C13.5 6.39782 13.342 6.77936 13.0607 7.06066C12.7794 7.34196 12.3978 7.5 12 7.5C11.6022 7.5 11.2206 7.34196 10.9393 7.06066C10.658 6.77936 10.5 6.39782 10.5 6ZM10.5 12C10.5 11.6022 10.658 11.2206 10.9393 10.9393C11.2206 10.658 11.6022 10.5 12 10.5C12.3978 10.5 12.7794 10.658 13.0607 10.9393C13.342 11.2206 13.5 11.6022 13.5 12C13.5 12.3978 13.342 12.7794 13.0607 13.0607C12.7794 13.342 12.3978 13.5 12 13.5C11.6022 13.5 11.2206 13.342 10.9393 13.0607C10.658 12.7794 10.5 12.3978 10.5 12ZM10.5 18C10.5 17.6022 10.658 17.2206 10.9393 16.9393C11.2206 16.658 11.6022 16.5 12 16.5C12.3978 16.5 12.7794 16.658 13.0607 16.9393C13.342 17.2206 13.5 17.6022 13.5 18C13.5 18.3978 13.342 18.7794 13.0607 19.0607C12.7794 19.342 12.3978 19.5 12 19.5C11.6022 19.5 11.2206 19.342 10.9393 19.0607C10.658 18.7794 10.5 18.3978 10.5 18Z" fill="#555659"/>
+                        </svg>
+                </div>                            
+            </div>
+            <div class="task-title">${item.task_name}</div>
+            <div class="tag_keyword">${upperCaseStringKeywordss.toUpperCase()}</div>
+            <div class="date_and_task-progress">
+                <span>
+                    ${createdDates.toLocaleDateString('en-US', options)}
+                </span>
+                <span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.615 6.615 2.25 12 2.25C17.385 2.25 21.75 6.615 21.75 12C21.75 17.385 17.385 21.75 12 21.75C6.615 21.75 2.25 17.385 2.25 12ZM15.61 10.186C15.67 10.1061 15.7134 10.0149 15.7377 9.91795C15.762 9.82098 15.7666 9.72014 15.7514 9.62135C15.7361 9.52257 15.7012 9.42782 15.6489 9.3427C15.5965 9.25757 15.5276 9.18378 15.4463 9.12565C15.3649 9.06753 15.2728 9.02624 15.1753 9.00423C15.0778 8.98221 14.9769 8.97991 14.8785 8.99746C14.7801 9.01501 14.6862 9.05205 14.6023 9.10641C14.5184 9.16077 14.4462 9.23135 14.39 9.314L11.154 13.844L9.53 12.22C9.38783 12.0875 9.19978 12.0154 9.00548 12.0188C8.81118 12.0223 8.62579 12.101 8.48838 12.2384C8.35097 12.3758 8.27225 12.5612 8.26882 12.7555C8.2654 12.9498 8.33752 13.1378 8.47 13.28L10.72 15.53C10.797 15.6069 10.8898 15.6662 10.992 15.7036C11.0942 15.7411 11.2033 15.7559 11.3118 15.7469C11.4202 15.738 11.5255 15.7055 11.6201 15.6519C11.7148 15.5982 11.7967 15.5245 11.86 15.436L15.61 10.186Z" fill="#555659"/>
+                        </svg>
+                        0/${item.subtask.length}                           
+                </span>
+            </div>
+        </div>`;
+
+        if (boardsTaskStorage && boardsTaskStorage[currentIndex].task_log.length > 0) {
+            if (item.status === "todo") {
+                todos.forEach(todo => {
+                    todo.innerHTML += statusTaskLogHTML;
+                });
+            } else if (item.status === "doing") {
+                doings.forEach(doing => {
+                    doing.innerHTML += statusTaskLogHTML;
+                });
+            } else if (item.status === "done") {
+                dones.forEach(done => {
+                    done.innerHTML += statusTaskLogHTML;
+                });
+            }
+        } 
+        });
         
         
         var btnTask = document.querySelectorAll('#btnTask');
@@ -291,6 +316,7 @@ boards.forEach((board, currentIndex) => {
         var btnCreateNewTask = document.querySelectorAll('#btnCreateNewTask');
         Array.from(btnTask).forEach(item => {
             item.addEventListener('click', () => {
+                
                     isCreateTaskModal = true;
                     if (isCreateTaskModal) {
                         createTaskModals.forEach(itemTask => {

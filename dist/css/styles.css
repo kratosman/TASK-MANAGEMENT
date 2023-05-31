@@ -612,3 +612,23 @@ nav .navbar_docs-titled {
         border-radius: 0;
     }
 }
+.todo_section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.doing_section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.done_section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.task-content {
+    cursor: pointer;
+}

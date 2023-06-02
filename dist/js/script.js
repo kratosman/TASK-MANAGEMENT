@@ -141,7 +141,7 @@ boards.forEach((board, currentIndex) => {
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="8" cy="8" r="8" fill="#EE2848"/>
                                 </svg>
-                                To do                        
+                                Pending                        
                         </div>
                         <div class="todo_section">
                         </div>
@@ -151,7 +151,7 @@ boards.forEach((board, currentIndex) => {
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="8" cy="8" r="8" fill="#F7B928"/>
                                 </svg>                        
-                                Doing                        
+                                In Progress                        
                         </div>
                         <div class="doing_section">
                         </div>
@@ -161,7 +161,7 @@ boards.forEach((board, currentIndex) => {
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="8" cy="8" r="8" fill="#45BD62"/>
                                 </svg>                        
-                                Done                        
+                                Completed                        
                         </div>
                         <div class="done_section">
                         </div>
@@ -209,18 +209,30 @@ boards.forEach((board, currentIndex) => {
                     </label>
                     <label for="keywords">
                         Keyword
-                        <input type="text" id="keywords" placeholder="e.g designing">
+                        <select name="keywords" id="keywords">
+                            <option value="layout">Layout</option>
+                            <option value="signages acrylic">Signages Acrylic</option>
+                            <option value="signages panaflex">Signages Panaflex</option>
+                            <option value="signages stainless">Signages Stainless</option>
+                            <option value="sticker">Sticker</option>
+                            <option value="sticker on sintra">Sticker on Sintra</option>
+                            <option value="frosted sticker">Frosted Sticker</option>
+                        </select>
                     </label>
                     <label for="priority">
                         Priority
-                        <input type="text" id="priority" placeholder="task name">
+                        <select name="priority" id="priority">
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
                     </label>
                     <label for="status">
                         Status
                         <select name="status" id="status">
-                            <option value="todo">To do</option>
-                            <option value="doing">Doing</option>
-                            <option value="done">Done</option>
+                            <option value="pending">Pending</option>
+                            <option value="inprogress">In Progress</option>
+                            <option value="completed">Completed</option>
                         </select>
                     </label>
                     <button id="btnCreateNewTask">
@@ -237,7 +249,12 @@ boards.forEach((board, currentIndex) => {
             newTask.addEventListener('click', () => {
                 document.querySelector('.subtask-log').innerHTML += `
                 <div class="subtask_raw">
-                
+                <input type="text" id="subtask" placeholder="e.g designing">
+                                <button id="btnEachTask">
+                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 48L48 16M16 16L48 48" stroke="#999999" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                </button>
                 </div>`;
 
                 document.querySelectorAll('.subtask_raw').forEach(substask => {
@@ -246,6 +263,7 @@ boards.forEach((board, currentIndex) => {
             });
         });
 
+        
 
         boardsTaskStorage[currentIndex].task_log.forEach(item => {
             var todos = document.querySelectorAll('.todo_section');
@@ -282,21 +300,22 @@ boards.forEach((board, currentIndex) => {
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.615 6.615 2.25 12 2.25C17.385 2.25 21.75 6.615 21.75 12C21.75 17.385 17.385 21.75 12 21.75C6.615 21.75 2.25 17.385 2.25 12ZM15.61 10.186C15.67 10.1061 15.7134 10.0149 15.7377 9.91795C15.762 9.82098 15.7666 9.72014 15.7514 9.62135C15.7361 9.52257 15.7012 9.42782 15.6489 9.3427C15.5965 9.25757 15.5276 9.18378 15.4463 9.12565C15.3649 9.06753 15.2728 9.02624 15.1753 9.00423C15.0778 8.98221 14.9769 8.97991 14.8785 8.99746C14.7801 9.01501 14.6862 9.05205 14.6023 9.10641C14.5184 9.16077 14.4462 9.23135 14.39 9.314L11.154 13.844L9.53 12.22C9.38783 12.0875 9.19978 12.0154 9.00548 12.0188C8.81118 12.0223 8.62579 12.101 8.48838 12.2384C8.35097 12.3758 8.27225 12.5612 8.26882 12.7555C8.2654 12.9498 8.33752 13.1378 8.47 13.28L10.72 15.53C10.797 15.6069 10.8898 15.6662 10.992 15.7036C11.0942 15.7411 11.2033 15.7559 11.3118 15.7469C11.4202 15.738 11.5255 15.7055 11.6201 15.6519C11.7148 15.5982 11.7967 15.5245 11.86 15.436L15.61 10.186Z" fill="#555659"/>
                         </svg>
-                        0/${item.subtask.length}                           
+                        0 / ${item.subtask.length}                           
                 </span>
             </div>
         </div>`;
 
+        let container;
         if (boardsTaskStorage && boardsTaskStorage[currentIndex].task_log.length > 0) {
-            if (item.status === "todo") {
+            if (item.status === "pending") {
                 todos.forEach(todo => {
                     todo.innerHTML += statusTaskLogHTML;
                 });
-            } else if (item.status === "doing") {
+            } else if (item.status === "inprogress") {
                 doings.forEach(doing => {
                     doing.innerHTML += statusTaskLogHTML;
                 });
-            } else if (item.status === "done") {
+            } else if (item.status === "completed") {
                 dones.forEach(done => {
                     done.innerHTML += statusTaskLogHTML;
                 });
@@ -343,39 +362,41 @@ boards.forEach((board, currentIndex) => {
                                 || priority.value === "") {
                                     isCancelModalOpen = true;
                                     cancelModal.style.display = "flex";
+                                } else {
+                                    document.getElementById('btnNull').addEventListener('click', () => {
+                                        isCancelModalOpen = false;
+                                        cancelModal.style.display = "none";
+                                        
+                                    });                                
+    
+                                    var updateTaskLog = {
+                                        task_name: task_name.value,
+                                        description: description.value,
+                                        subtask: [{statusList:subtask.value, isCompleted: false}],
+                                        duedate: duedate.value,
+                                        created_at: Date.now(),
+                                        keywords: keywords.value,
+                                        priority: priority.value,
+                                        status: currentStatus.value,
+                                    }
+                                
+                                    boardsTaskStorage[currentIndex].task_log.push(updateTaskLog);
+                                    localStorage.setItem(storage_key, JSON.stringify(boardsTaskStorage)); 
+                                
+                                    task_name.value = "";
+                                        description.value = "";
+                                        subtask.value = "";
+                                        duedate.value = "";
+                                        keywords.value = "";
+                                        priority.value = "";
+                                
+                                        createTaskModals.forEach(itemTask => {
+                                            itemTask.style.display = "none";
+                                        })
+                                        isCreateTaskModal = false;    
                                 }
 
-                                document.getElementById('btnNull').addEventListener('click', () => {
-                                    isCancelModalOpen = false;
-                                    cancelModal.style.display = "none";
-                                    
-                                });                                
-
-                                var updateTaskLog = {
-                                    task_name: task_name.value,
-                                    description: description.value,
-                                    subtask: [{statusList:subtask.value, isCompleted: false}],
-                                    duedate: duedate.value,
-                                    created_at: Date.now(),
-                                    keywords: keywords.value,
-                                    priority: priority.value,
-                                    status: currentStatus.value,
-                                }
-                            
-                                boardsTaskStorage[currentIndex].task_log.push(updateTaskLog);
-                                localStorage.setItem(storage_key, JSON.stringify(boardsTaskStorage)); 
-                            
-                                task_name.value = "";
-                                    description.value = "";
-                                    subtask.value = "";
-                                    duedate.value = "";
-                                    keywords.value = "";
-                                    priority.value = "";
-                            
-                                    createTaskModals.forEach(itemTask => {
-                                        itemTask.style.display = "none";
-                                    })
-                                    isCreateTaskModal = false;
+                                
                             });
                             
                             
@@ -390,11 +411,10 @@ boards.forEach((board, currentIndex) => {
                                     }
                                 });
                                 
-                            })
+                            });
                         });
                     }
             }); 
         })
     });
 });
-

@@ -199,12 +199,14 @@ nav .navbar_docs-titled {
     display: none;
 }
 .main_section-status {
-    --column-width: 330px;
+    /* --column-width: 330px; */
     overflow-x: scroll;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--column-width), 1fr));
     grid-auto-rows: var(--column-width);
     grid-auto-flow: column;
+    justify-items: flex-start;
+    align-items: flex-start;
     height: 100vh;
     width: 100%;
     padding: 16px 24px 24px 24px;
@@ -266,7 +268,7 @@ nav .navbar_docs-titled {
     display: none;
 }
 .task-content {
-    width: 330px;
+    width: 484px;
     background-color: #121212;
     padding: 16px;
     box-sizing: border-box;
@@ -613,22 +615,117 @@ nav .navbar_docs-titled {
     }
 }
 .todo_section {
+    width: 484px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
 .doing_section {
+    height: 100vh;
+    width: 484px;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
 .done_section {
+    height: 100vh;
+    width: 484px;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 .task-content {
     cursor: pointer;
+}
+
+.task-detail-modal {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0,0, 0.5);
+}
+.task-detail-modal-contents {
+    width: 750px;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+}
+.task-detail-modal-contents::-webkit-scrollbar {
+    width: 0;
+}
+.task-detail-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.task-detail-title span:nth-child(2) {
+    cursor: pointer;
+}
+.task-descriptions {
+    color: #a3a3a3;
+    padding: 8px;
+    margin-top: 16px;
+    border-radius: 8px;
+}
+.subtask-container {
+    margin-top: 16px;
+}
+.subtask-container {
+    width: 100%;
+    margin: 16px 0 16px 0;
+}
+.subtask-container label {
+    background-color: #e4e4e4;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 12px;
+    margin: 16px 0 16px 0;
+}
+.subtask-container label input{
+    background-color: #e4e4e4;
+}
+.currentStatus { 
+    width: 100%;
+}
+.currentStatus label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.currentStatus label select{
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 16px;
+    outline: none;
+}
+#btnModalTaskDetails {
+    margin-top: 32px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    background-color: var(--base-color);
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    text-transform: capitalize;
 }

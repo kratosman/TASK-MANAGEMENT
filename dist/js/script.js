@@ -305,11 +305,30 @@ boards.forEach((board, currentIndex) => {
             </div>
         </div>`;
 
-        let container;
+
+        // switch (key) {
+        //     case "pending":
+                
+        //         break;
+        //     case "inprogress":
+                
+        //         break;
+        //     case "completed":
+                
+        //         break;
+        //     default:
+        //         break;
+        // }
+
         if (boardsTaskStorage && boardsTaskStorage[currentIndex].task_log.length > 0) {
             if (item.status === "pending") {
                 todos.forEach(todo => {
                     todo.innerHTML += statusTaskLogHTML;
+                    Array.from(document.querySelectorAll('.task-content')).forEach((elItems, index) => {
+                        elItems.addEventListener('click', () => {
+                            alert("SAd");
+                        })
+                    })
                 });
             } else if (item.status === "inprogress") {
                 doings.forEach(doing => {

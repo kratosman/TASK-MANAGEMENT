@@ -45,7 +45,7 @@ function checkReminders() {
 
     if (dateHours === 8 && dateMinutes === 30 && period === 'AM') {
         createReminderFunc('8:30 AM', morning_coffee);
-    } else if (dateHours === 12 && dateMinutes === 50 && period === 'PM') {
+    } else if (dateHours === 12 && dateMinutes === 00 && period === 'PM') {
         createReminderFunc('12:00 PM', noon_coffee);
     } else if (dateHours === 3 && dateMinutes === 00 && period === 'PM') {
         createReminderFunc('3:00 AM', afternoon);

@@ -4,7 +4,6 @@ var tipsTime = {
     afternoon: "It's time for a well-deserved coffee break to boost your energy.",
     afternoon_night: 'Wind down your day with a soothing cup of coffee.'
 }
-console.log(tipsTime);
 
 const date = new Date();
 const dateHours = date.getHours();
@@ -36,12 +35,11 @@ function createReminderFunc(time, message) {
 }
 
 function checkReminders() {
-    let audioPath = '../../assets//facebook_messenger.mp3';
 
     if (dateHours === 8 && dateMinutes === 30 && period === 'AM') {
         createReminderFunc('8:30 AM', morning_coffee);
         clearInterval(remindersTime);
-    } else if (dateHours === 12 && dateMinutes === 07 && period === 'PM') {
+    } else if (dateHours === 12 && dateMinutes === 00 && period === 'PM') {
         createReminderFunc('12:00 PM', noon_coffee);
         clearInterval(remindersTime);
     } else if (dateHours === 3 && dateMinutes === 00 && period === 'PM') {

@@ -188,12 +188,9 @@ boards.forEach((board, currentIndex) => {
                         Subtask
                         <span class="subtask-log">
                             <div class="subtask_raw">
+                                <div>
                                 <input type="text" id="subtask" placeholder="e.g designing">
-                                <button id="btnEachTask">
-                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16 48L48 16M16 16L48 48" stroke="#999999" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                </button>
+                                </div>
                             </div>
                         </span>                    
                     </label>
@@ -241,36 +238,18 @@ boards.forEach((board, currentIndex) => {
                 </div>
             </div>
                 `;
-        }
+        }        
 
-        var btnAddSubtask = document.querySelectorAll('#btnAddSubtask');
 
-        btnAddSubtask.forEach(newTask => {
-            newTask.addEventListener('click', () => {
-                document.querySelector('.subtask-log').innerHTML += `
-                <div class="subtask_raw">
-                <input type="text" id="subtask" placeholder="e.g designing">
-                                <button id="btnEachTask">
-                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16 48L48 16M16 16L48 48" stroke="#999999" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                </button>
-                </div>`;
-
-                document.querySelectorAll('.subtask_raw').forEach(substask => {
-                    
-                })
-            });
-        });
-
-        
+                var pendings = document.querySelectorAll('.todo_section');
+                var inprogresss = document.querySelectorAll('.doing_section');
+                var completeds = document.querySelectorAll('.done_section');
 
         boardsTaskStorage[currentIndex].task_log.forEach(item => {
 
         if (boardsTaskStorage && boardsTaskStorage[currentIndex].task_log.length > 0) {
-                var pendings = document.querySelectorAll('.todo_section');
-                var inprogresss = document.querySelectorAll('.doing_section');
-                var completeds = document.querySelectorAll('.done_section');
+                
+
 
                 let createdAts = item.created_at;
                 let createdDates = new Date(createdAts);
@@ -282,16 +261,18 @@ boards.forEach((board, currentIndex) => {
                 };
                 let upperCaseStringPrioritys = item.priority;
                 let upperCaseStringKeywordss = item.keywords;
+                
                 var sectionMapping = {
                     pending : pendings,
                     inprogress: inprogresss,
                     completed: completeds
                 }
-
+                console.log(sectionMapping.pending)
                 var status = item.status;
+                console.log(status);
                 var section = sectionMapping[status];
 
-                section.forEach(sectionItem => {
+                section.forEach((sectionItem) => {
                     sectionItem.innerHTML += `<div class="task-content">
                     <div class="priority_and_ellipses">
                         <div class="tag-priority">${upperCaseStringPrioritys.toUpperCase()}</div>
@@ -320,78 +301,78 @@ boards.forEach((board, currentIndex) => {
         });
         
         var taskContent = document.querySelectorAll('.task-content');
-                taskContent.forEach((elItems, itemIndex) => {
-                    var dataList = boardsTaskStorage[currentIndex].task_log[itemIndex].subtask.map(itemList => itemList.statusList);
-                    
-                                elItems.addEventListener('click', () => {
-                                    console.log(itemIndex)
-                                    var taskDetailModal = document.createElement('div');
-                                    taskDetailModal.classList.add('task-detail-modal');
+taskContent.forEach((elItems, itemIndex) => {
+  var dataList = boardsTaskStorage[currentIndex].task_log[itemIndex].subtask.map(itemList => itemList.statusList);
 
-                                    taskDetailModal.innerHTML += `<!-- TASK CONTENT -->
-                                        <div class="task-detail-modal-contents">
-                                            <div class="task-detail-title">
-                                                <span>
-                                                    <h1>${boardsTaskStorage[currentIndex].task_log[itemIndex].task_name}</h1>
-                                                </span>
-                                                <span>
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 6C10.5 5.60218 10.658 5.22064 10.9393 4.93934C11.2206 4.65804 11.6022 4.5 12 4.5C12.3978 4.5 12.7794 4.65804 13.0607 4.93934C13.342 5.22064 13.5 5.60218 13.5 6C13.5 6.39782 13.342 6.77936 13.0607 7.06066C12.7794 7.34196 12.3978 7.5 12 7.5C11.6022 7.5 11.2206 7.34196 10.9393 7.06066C10.658 6.77936 10.5 6.39782 10.5 6ZM10.5 12C10.5 11.6022 10.658 11.2206 10.9393 10.9393C11.2206 10.658 11.6022 10.5 12 10.5C12.3978 10.5 12.7794 10.658 13.0607 10.9393C13.342 11.2206 13.5 11.6022 13.5 12C13.5 12.3978 13.342 12.7794 13.0607 13.0607C12.7794 13.342 12.3978 13.5 12 13.5C11.6022 13.5 11.2206 13.342 10.9393 13.0607C10.658 12.7794 10.5 12.3978 10.5 12ZM10.5 18C10.5 17.6022 10.658 17.2206 10.9393 16.9393C11.2206 16.658 11.6022 16.5 12 16.5C12.3978 16.5 12.7794 16.658 13.0607 16.9393C13.342 17.2206 13.5 17.6022 13.5 18C13.5 18.3978 13.342 18.7794 13.0607 19.0607C12.7794 19.342 12.3978 19.5 12 19.5C11.6022 19.5 11.2206 19.342 10.9393 19.0607C10.658 18.7794 10.5 18.3978 10.5 18Z" fill="#555659"/>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="task-descriptions">
-                                                ${boardsTaskStorage[currentIndex].task_log[itemIndex].description}
-                                            </div>
-                                            <div class="subtask-container">
-                                                <span><h4>Substask ( 0 of ${boardsTaskStorage[currentIndex].task_log[itemIndex].subtask.length})</h4></span>
-                                                <label for="isCompletedSubtask">
-                                                    <input type="checkbox" name="isCompletedSubtask" id="isCompletedSubtask">
-                                                    ${dataList}
-                                                </label>
-                                            </div>
-                                            <div class="currentStatus">
-                                                <label for="status">
-                                                    <span><h4>Status</h4></span>
-                                                    <select name="status" id="updateStatus">
-                                                        <option value="pending">Pending</option>
-                                                        <option value="inprogress">In Progress</option>
-                                                        <option value="completed">Completed</option>
-                                                    </select>
-                                                </label>
-                                            </div>
-                                            <button id="btnModalTaskDetails">
-                                                Save
-                                            </button>
-                                        </div>`;
+  elItems.addEventListener('click', (function (currentIndex, itemIndex) {
+    return function () {
+      var taskDetailModal = document.createElement('div');
+      taskDetailModal.classList.add('task-detail-modal');
+      
+      taskDetailModal.innerHTML = '';
+      
+      taskDetailModal.innerHTML += `<!-- TASK CONTENT -->
+        <div class="task-detail-modal-contents">
+          <div class="task-detail-title">
+            <span>
+              <h1>${boardsTaskStorage[currentIndex].task_log[itemIndex].task_name}</h1>
+            </span>
+            <span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 6C10.5 5.60218 10.658 5.22064 10.9393 4.93934C11.2206 4.65804 11.6022 4.5 12 4.5C12.3978 4.5 12.7794 4.65804 13.0607 4.93934C13.342 5.22064 13.5 5.60218 13.5 6C13.5 6.39782 13.342 6.77936 13.0607 7.06066C12.7794 7.34196 12.3978 7.5 12 7.5C11.6022 7.5 11.2206 7.34196 10.9393 7.06066C10.658 6.77936 10.5 6.39782 10.5 6ZM10.5 12C10.5 11.6022 10.658 11.2206 10.9393 10.9393C11.2206 10.658 11.6022 10.5 12 10.5C12.3978 10.5 12.7794 10.658 13.0607 10.9393C13.342 11.2206 13.5 11.6022 13.5 12C13.5 12.3978 13.342 12.7794 13.0607 13.0607C12.7794 13.342 12.3978 13.5 12 13.5C11.6022 13.5 11.2206 13.342 10.9393 13.0607C10.658 12.7794 10.5 12.3978 10.5 12ZM10.5 18C10.5 17.6022 10.658 17.2206 10.9393 16.9393C11.2206 16.658 11.6022 16.5 12 16.5C12.3978 16.5 12.7794 16.658 13.0607 16.9393C13.342 17.2206 13.5 17.6022 13.5 18C13.5 18.3978 13.342 18.7794 13.0607 19.0607C12.7794 19.342 12.3978 19.5 12 19.5C11.6022 19.5 11.2206 19.342 10.9393 19.0607C10.658 18.7794 10.5 18.3978 10.5 18Z" fill="#555659"/>
+              </svg>
+            </span>
+          </div>
+          <div class="task-descriptions">
+            ${boardsTaskStorage[currentIndex].task_log[itemIndex].description}
+          </div>
+          <div class="subtask-container">
+            <span><h4>Subtask ( 0 of ${boardsTaskStorage[currentIndex].task_log[itemIndex].subtask.length})</h4></span>
+            <label for="isCompletedSubtaskOne">
+              <input type="checkbox" name="isCompletedSubtaskOne" id="isCompletedSubtaskOne">
+              ${dataList}
+            </label>
+          </div>
+          <div class="currentStatus">
+            <label for="updateStatus">
+              <span><h4>Status</h4></span>
+              <select name="updateStatus" id="updateStatus">
+                <option value="pending">Pending</option>
+                <option value="inprogress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </label>
+          </div>
+          <button id="btnModalTaskDetails">
+            Save
+          </button>
+        </div>`;
 
-                                        document.body.appendChild(taskDetailModal);
+      document.body.appendChild(taskDetailModal);
 
-                                        //DONT PUT THIS ABOVE ON THIS DOCUMENT.BODY.APPENCHILD(TASKDETAILMMODAL);
-                                        var btnModalTaskDetails = document.querySelectorAll('#btnModalTaskDetails');
-                                        btnModalTaskDetails.forEach((btnModalTaskDetail, indextask) => {
-                                            btnModalTaskDetail.addEventListener('click', () => {
-                                                var updateStatus = document.querySelectorAll('#updateStatus');
-                                                updateStatus.forEach(itemStatus => {
-                                                    boardsTaskStorage[currentIndex].task_log[itemIndex].status = itemStatus.value;
-                                                    localStorage.setItem(storage_key, JSON.stringify(boardsTaskStorage));  
-                                                    
-                                                    taskDetailModal.classList.remove('task-detail-modal');
-                                                })
-                                            })
-                                        })
+      var btnModalTaskDetails = taskDetailModal.querySelectorAll('#btnModalTaskDetails');
+      btnModalTaskDetails.forEach((btnModalTaskDetail, indextask) => {
+        btnModalTaskDetail.addEventListener('click', () => {
+          var updateStatus = document.querySelectorAll('#updateStatus');
+          updateStatus.forEach(itemStatus => {
+            boardsTaskStorage[currentIndex].task_log[itemIndex].status = itemStatus.value;
+            localStorage.setItem(storage_key, JSON.stringify(boardsTaskStorage));
 
-                                        window.addEventListener('click', (e) => {
-                                            if (e.target === taskDetailModal) {
-                                                taskDetailModal.style.display = "none";        
-                                            }
-                                        })
-                                    
-                                });
+            taskDetailModal.classList.remove('task-detail-modal');
+          })
+        })
+      })
 
+      window.addEventListener('click', (e) => {
+        if (e.target === taskDetailModal) {
+          taskDetailModal.style.display = "none";
+        }
+      })
 
-                                
-                            });
+    }
+  })(currentIndex, itemIndex));
+});
+
         
         var btnTask = document.querySelectorAll('#btnTask');
 

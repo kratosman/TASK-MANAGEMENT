@@ -729,3 +729,14 @@ nav .navbar_docs-titled {
     cursor: pointer;
     text-transform: capitalize;
 }
+.reminders {
+    position: fixed;
+    width: 600px;
+    height: auto;
+    right: 24px;
+    bottom: 24px;
+    border-radius: 6px;
+    background-color:#121212;
+    color: white;
+    padding: 24px;
+}

@@ -528,9 +528,11 @@ nav .navbar_docs-titled {
     display: flex;
     align-items: center;
     width: 100%;
-    flex-direction: column;
 }
 .subtask_raw {
+    width: 100%;
+}
+.subtask_raw div{
     display: flex;
     align-items: center;
     width: 100%;

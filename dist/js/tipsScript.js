@@ -19,7 +19,7 @@ if (dateHours > 12) {
 }
     
 
-function createReminderFunc(time, message, audioSrc) {
+function createReminderFunc(time, message) {
     var reminders = document.createElement('div');
     
     reminders.innerHTML += `<div class="reminders">
@@ -41,7 +41,7 @@ function checkReminders() {
     if (dateHours === 8 && dateMinutes === 30 && period === 'AM') {
         createReminderFunc('8:30 AM', morning_coffee);
         clearInterval(remindersTime);
-    } else if (dateHours === 12 && dateMinutes === 04 && period === 'PM') {
+    } else if (dateHours === 12 && dateMinutes === 07 && period === 'PM') {
         createReminderFunc('12:00 PM', noon_coffee);
         clearInterval(remindersTime);
     } else if (dateHours === 3 && dateMinutes === 00 && period === 'PM') {
